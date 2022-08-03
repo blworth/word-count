@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 public class WordCounter {
 
@@ -14,7 +12,7 @@ public class WordCounter {
       "out", "a", "to", "that", "it", "he", "you", "was", "his", "is", "have", "had"};
   private final Map<String, Integer> counts = new HashMap<>();
 
-  private int totalWords ;
+  private int totalWords;
 
   public Set<String> words() {
     return counts.keySet();
@@ -60,7 +58,7 @@ public class WordCounter {
     Arrays.stream(words)
         .map((s) -> s.trim())     //.map lets you take a value in the map and change it/replace it
         .filter((s) -> !s.isEmpty())
-        .filter((s) -> s.length() > 10)
+        .filter((s) -> s.length() > 14)
 //        .filter(Predicate.not(s -> s.isEmpty()))
         .forEach((word) -> counts.put(word, 1 + counts.getOrDefault(word, 0)));
   }
