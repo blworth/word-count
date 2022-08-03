@@ -1,15 +1,20 @@
 package com.tlglearning.wordcount;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class WordCounter {
 
+  public static final String[] BORING_WORDS = {"and", "of", "the", "in", "i", "on", "then", "than",
+      "out", "a", "to", "that", "it", "he", "you", "was", "his", "is", "have", "had"};
   private final Map<String, Integer> counts = new HashMap<>();
 
-  private int totalWords;
+  private int totalWords ;
 
   public Set<String> words() {
     return counts.keySet();
@@ -51,10 +56,13 @@ public class WordCounter {
   }
 
   void countWords(String[] words) {
-    for (String word : words) {
-      counts.put(word, get(word) + 1);
-      totalWords++;
-    }
+
+    Arrays.stream(words)
+        .map((s) -> s.trim())     //.map lets you take a value in the map and change it/replace it
+        .filter((s) -> !s.isEmpty())
+        .filter((s) -> s.length() > 10)
+//        .filter(Predicate.not(s -> s.isEmpty()))
+        .forEach((word) -> counts.put(word, 1 + counts.getOrDefault(word, 0)));
   }
 
 }

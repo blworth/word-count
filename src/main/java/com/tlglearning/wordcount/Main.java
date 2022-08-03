@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.Comparator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class Main {
 
@@ -18,11 +21,20 @@ public class Main {
       WordCounter counter = new WordCounter();
       String line;
       while ((line = buffer.readLine()) != null) {
-       // TODO Pass line to a method of WordCounter.
+        // TODO Pass line to a method of WordCounter.
         counter.add(line);
       }
-      //TODO Do something with out WordCounter.
-      System.out.println(counter);
+
+      counter
+          .getCounts()
+          .entrySet()
+          .stream()
+          .sorted(Comparator.comparing(Entry <String, Integer>::getValue).reversed())
+          .limit(10)
+          .forEach(System.out::println);
+
+
+
     }
   }
 }
